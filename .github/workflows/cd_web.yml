@@ -21,6 +21,6 @@ jobs:
           context: .
           file: ./docker/Dockerfile.frontend
           build_args:
-            - DATABASE_URL=${{ secrets.DATABASE_URL}}
+            - DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: suryakantdas/ludo-frontend:${{github.sha}}
