@@ -1,0 +1,24 @@
+name: Deploy the backend
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the repo
+        uses: action/checkout@v2
+
+      - name: docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{screts.DOCKERHUB_USERNAME}}
+          password: ${{screts.DOCKER_PASSWORD}}
+
+      - name: Build and Pushing to docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./docker/Dockerfile.backend
+          push: true
+          tags: suryakantdas/ludo-backend:${{github.sha}}

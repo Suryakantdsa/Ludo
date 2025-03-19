@@ -24,5 +24,5 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("server running on post 3003");
+  console.log("server running on post 3001");
 });
