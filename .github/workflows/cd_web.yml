@@ -15,11 +15,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Pushing to docker hub
+      # - name: Build and Pushing to docker hub
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: ./docker/Dockerfile.frontend
+      #     build-args: DATABASE_URL=${{ secrets.DATABASE_URL }}
+      #     push: true
+      #     tags: suryakantdas/ludo-frontend:${{github.sha}}
+      - name: Build and Push to Docker Hub
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./docker/Dockerfile.frontend
-          build-args: DATABASE_URL=${{ secrets.DATABASE_URL }}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
-          tags: suryakantdas/ludo-frontend:${{github.sha}}
+          tags: suryakantdas/ludo-frontend:${{ github.sha }}
