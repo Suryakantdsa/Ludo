@@ -1,9 +1,9 @@
-FROM --platform=linux/amd64 oven/bun
+FROM oven/bun:1
 
 WORKDIR /user/src/app
 
 ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
+# ENV DATABASE_URL=${DATABASE_URL}
 
 COPY ./packages ./packages
 
@@ -18,7 +18,7 @@ COPY ./apps/web ./apps/web
 
 RUN bun run db:generate
 # RUN echo "DATABASE_URL is set to: $DATABASE_URL"
-RUN bun run build
+RUN DATABASE_URL=$DATABASE_URL bunx turbo build --filter=web...
 
 EXPOSE 3000
 CMD ["bun","run","start:web"]
